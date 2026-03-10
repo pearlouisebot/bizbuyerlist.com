@@ -140,7 +140,7 @@
         <p class="tagline">Find buyers for your business</p>
         <p class="pitch">The curated list of verified business buyers. Whether you're selling a SaaS, agency, or e-commerce brand — find your buyer here.</p>
         <form class="waitlist-form" id="wf" onsubmit="return sub(event)">
-            <input type="email" id="em" placeholder="Enter your email" required autocomplete="email">
+            <input type="email" id="em" placeholder="Enter your email" required autocomplete="email"><input type="text" id="hp_name" name="name" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" tabindex="-1" autocomplete="off">
             <button type="submit" id="btn">Be the first to know</button>
         </form>
         <p class="form-msg" id="msg"></p>
@@ -148,7 +148,7 @@
     </div>
     <script>
         const S='https://kxyqdzkoyuzszcyfvpee.supabase.co',K='sb_publishable_aXDS4SvG7aMZKExyNPTbgA_mBzZdQZU',N='bizbuyerlist';
-        async function sub(e){e.preventDefault();const b=document.getElementById('btn'),m=document.getElementById('msg'),v=document.getElementById('em').value.trim();if(!v)return!1;b.disabled=!0;b.textContent='...';m.textContent='';m.className='form-msg';try{const r=await fetch(S+'/rest/v1/waitlist',{method:'POST',headers:{'apikey':K,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({email:v,site_url:location.href,site_name:N})});if(r.ok){m.textContent="You're on the list! We'll be in touch.";m.className='form-msg success';document.getElementById('em').value='';}else if(r.status===409){m.textContent="You're already on the list!";m.className='form-msg success';}else throw 0;}catch(x){m.textContent='Something went wrong. Please try again.';m.className='form-msg error';}b.disabled=!1;b.textContent='Be the first to know';return!1;}
+        async function sub(e){e.preventDefault();if(document.getElementById('hp_name').value)return!1;const b=document.getElementById('btn'),m=document.getElementById('msg'),v=document.getElementById('em').value.trim();if(!v)return!1;b.disabled=!0;b.textContent='...';m.textContent='';m.className='form-msg';try{const r=await fetch(S+'/rest/v1/waitlist',{method:'POST',headers:{'apikey':K,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({email:v,site_url:location.href,site_name:N})});if(r.ok){m.textContent="You're on the list! We'll be in touch.";m.className='form-msg success';document.getElementById('em').value='';}else if(r.status===409){m.textContent="You're already on the list!";m.className='form-msg success';}else throw 0;}catch(x){m.textContent='Something went wrong. Please try again.';m.className='form-msg error';}b.disabled=!1;b.textContent='Be the first to know';return!1;}
     </script>
 </body>
 </html>
